@@ -1,0 +1,28 @@
+package com.sample.rules
+ 
+import com.sample.Timesheet;
+ 
+rule "Hours Less"
+    when
+        timesheet : Timesheet(employeeHours <8)
+    then
+        System.out.println( "Employee hours less.Payment Denied" );
+        timesheet.setPayStatus("Denied");
+end
+
+
+ 
+rule "Hours more"
+    when
+        timesheet : Timesheet(employeeHours >40)
+    then
+        System.out.println( "Employee hours Perfect" );
+        timesheet.setPayStatus("Paid");
+end
+ 
+rule "Budget Less"
+    when
+        timesheet : Timesheet(!projectBudgetOk)
+    then
+        System.out.println( "Budget Not ok" );
+end
